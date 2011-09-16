@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20110916204923) do
   end
 
   create_table "teams", :force => true do |t|
-    t.string   "title"
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

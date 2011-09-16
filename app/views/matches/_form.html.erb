@@ -13,11 +13,11 @@
 
   <div class="field">
     <%= f.label :team_1_id %><br />
-    <%= f.select :team_1_id, options_from_collection_for_select(@people, 'id', 'name') %>
+    <%= f.select :team_1_id, options_from_collection_for_select(@teams, 'id', 'name'), { :include_blank => true } %>
   </div>
   <div class="field">
     <%= f.label :team_2_id %><br />
-    <%= f.number_field :team_2_id %>
+    <%= f.select :team_2_id, options_from_collection_for_select(@teams, 'id', 'name'), { :include_blank => true } %>
   </div>
   <div class="field">
     <%= f.label :began_on %><br />
