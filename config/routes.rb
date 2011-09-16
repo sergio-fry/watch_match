@@ -1,4 +1,6 @@
 Watchme::Application.routes.draw do
+  resources :matches
+
   resources :teams
 
   # The priority is based upon order of creation:

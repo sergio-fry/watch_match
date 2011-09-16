@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Team 1:</b>
+  <%= @match.team_1_id %>
+</p>
+
+<p>
+  <b>Team 2:</b>
+  <%= @match.team_2_id %>
+</p>
+
+<p>
+  <b>Began on:</b>
+  <%= @match.began_on %>
+</p>
+
+<p>
+  <b>Goals 1:</b>
+  <%= @match.goals_1 %>
+</p>
+
+<p>
+  <b>Goals 2:</b>
+  <%= @match.goals_2 %>
+</p>
+
+
+<%= link_to 'Edit', edit_match_path(@match) %> |
+<%= link_to 'Back', matches_path %>
