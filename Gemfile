@@ -39,4 +39,8 @@ end
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
+  gem 'rspec-rails'
+  gem 'ZenTest'
+  gem 'factory_girl_rails'
+  gem 'spork'
 end
