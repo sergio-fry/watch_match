@@ -1,6 +1,16 @@
 class H2hStatsCrawler
   LEAGUE_LIST_URL = "http://www.h2hstats.com/soccer/lgoverview.php"
 
+  class League < OpenStruct
+    def url
+      "http://www.h2hstats.com/soccer/league.php?getlg=#{code}"
+    end
+
+    def fixtures_url
+      "http://www.h2hstats.com/soccer/lgfixtures.php?lg=#{code}"
+    end
+  end
+
   def leagues
     result = []
 
@@ -9,10 +19,9 @@ class H2hStatsCrawler
       columns = tr.css("td")
       attrs = {}
       attrs[:name] = strip_string columns[0].content
-      attrs[:url] = "http://www.h2hstats.com/soccer/" + columns[0].css("a").attr("href").value
-      attrs[:code] = attrs[:url].match(/getlg=([A-Z]+)/)[1]
+      attrs[:code] = columns[0].css("a").attr("href").value.match(/getlg=([A-Z]+)/)[1]
 
-      result << OpenStruct.new(attrs)
+      result << League.new(attrs)
     end
 
     result

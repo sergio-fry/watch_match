@@ -28,6 +28,10 @@ describe H2hStatsCrawler do
       it "should fetch code" do
         @league.code.should == "EPL"
       end
+
+      it "should fetch fixtures url" do
+        @league.fixtures_url.should == "http://www.h2hstats.com/soccer/lgfixtures.php?lg=EPL"
+      end
     end
   end
 end
