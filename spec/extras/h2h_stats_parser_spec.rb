@@ -36,6 +36,24 @@ describe H2hStatsParser do
         @match.team_2_odds.should == 3.65
         @match.draw_odds.should   == 3.65
       end
+
+      describe "date" do
+        it "should be correct if this year" do
+          Timecop.freeze Time.mktime(2011, 10, 16)
+          @match.date.should == Time.mktime(2011, 10, 2)
+        end
+
+        it "should take current year" do
+          Timecop.freeze Time.mktime(2012, 10, 16)
+          @match.date.should == Time.mktime(2012, 10, 2)
+        end
+
+        it "should be in the past" do
+          Timecop.freeze Time.mktime(2011, 10, 1)
+
+          @match.date.should be_past
+        end
+      end
     end
   end
 end

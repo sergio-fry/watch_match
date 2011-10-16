@@ -1,4 +1,17 @@
 class H2hStatsParser
+  class Match < OpenStruct
+    def date
+      date_match = super.match(/([[:digit:]]+)\/([[:digit:]]+)/)
+      date = Time.mktime(Time.now.year, date_match[2], date_match[1])
+
+      if date.future?
+        date = date - 1.year
+      end
+
+      date
+    end
+  end
+
   def initialize(html)
     @html = html
     @doc = Nokogiri::HTML(@html)
@@ -22,7 +35,9 @@ class H2hStatsParser
         attrs[:team_2_odds] = strip_string(columns[8].content).to_f
         attrs[:draw_odds]   = strip_string(columns[7].content).to_f
 
-        result << OpenStruct.new(attrs)
+        attrs[:date] = strip_string(columns[0].content)
+
+        result << Match.new(attrs)
       end
     end
 
