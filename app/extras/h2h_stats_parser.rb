@@ -1,5 +1,3 @@
-require 'ostruct'
-
 class H2hStatsParser
   def initialize(html)
     @html = html
@@ -30,6 +28,8 @@ class H2hStatsParser
 
     result
   end
+
+  protected
 
   def strip_string(string)
     string.strip.gsub(/^[[:space:]]+/, "").gsub(/[[:space:]]+$/, "")

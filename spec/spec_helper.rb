@@ -32,6 +32,12 @@ Spork.prefork do
     # examples within a transaction, remove the following line or assign false
     # instead of true.
     config.use_transactional_fixtures = true
+
+    FakeWeb.allow_net_connect = false
+    config.before(:each) do
+      Timecop.return
+      FakeWeb.clean_registry
+    end
   end
 end
 
