@@ -1,5 +1,5 @@
 class H2hStatsParser
-  class Match < OpenStruct
+  class H2hMatch < OpenStruct
     def date
       date_match = super.match(/([[:digit:]]+)\/([[:digit:]]+)/)
       date = Time.mktime(Time.now.year, date_match[2], date_match[1])
@@ -37,7 +37,7 @@ class H2hStatsParser
 
         attrs[:date] = strip_string(columns[0].content)
 
-        result << Match.new(attrs)
+        result << H2hMatch.new(attrs)
       end
     end
 
