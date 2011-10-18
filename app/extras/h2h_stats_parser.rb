@@ -14,6 +14,11 @@ class H2hStatsParser
     def record
       Match.new({ :team_1 => Team.find_or_create_by_name(team_1_name),
         :team_2 => Team.find_or_create_by_name(team_2_name),
+        :team_1_odds => team_1_odds,
+        :team_2_odds => team_2_odds,
+        :draw_odds => draw_odds,
+        :goals_1 => goals_1,
+        :goals_2 => goals_2,
         :began_on => date})
     end
   end

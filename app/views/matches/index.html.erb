@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+    <th>League</th>
     <th>Team 1</th>
     <th>Team 2</th>
     <th>Began on</th>
@@ -12,16 +13,10 @@
 
 <% @matches.each do |match| %>
   <tr>
+    <td><%= match.league.name %></td>
     <td><%= match.team_1.name %></td>
     <td><%= match.team_2.name %></td>
     <td><%= match.began_on %></td>
-    <td><%= link_to 'Show', match %></td>
-    <td><%= link_to 'Edit', edit_match_path(match) %></td>
-    <td><%= link_to 'Destroy', match, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Match', new_match_path %>
