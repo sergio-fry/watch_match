@@ -26,6 +26,7 @@ describe H2hStatsFixturesParser do
         end
 
         it "should be valid (but only with empty league)" do
+          Match.destroy_all
           record = @match.record
           record.league = @league
           record.should be_valid

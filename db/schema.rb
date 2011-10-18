@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111017060733) do
+ActiveRecord::Schema.define(:version => 20111018062457) do
 
   create_table "leagues", :force => true do |t|
     t.string   "name"
@@ -35,7 +35,10 @@ ActiveRecord::Schema.define(:version => 20111017060733) do
     t.float    "team_1_odds"
     t.float    "team_2_odds"
     t.float    "draw_odds"
+    t.float    "rating"
   end
+
+  add_index "matches", ["rating"], :name => "index_matches_on_rating"
 
   create_table "teams", :force => true do |t|
     t.string   "name"
