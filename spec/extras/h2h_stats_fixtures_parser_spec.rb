@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe H2hStatsParser do
+describe H2hStatsFixturesParser do
   before(:each) do
     @league_fixtures_page = File.read(File.join(Rails.root, "spec/sample_files/h2h_league_fixtures.html"))
-    @parser = H2hStatsParser.new @league_fixtures_page
+    @parser = H2hStatsFixturesParser.new @league_fixtures_page
   end
 
   describe "matches" do

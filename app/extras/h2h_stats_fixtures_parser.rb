@@ -1,4 +1,4 @@
-class H2hStatsParser
+class H2hStatsFixturesParser
   class H2hMatch < OpenStruct
     def date
       date_match = super.match(/([[:digit:]]+)\/([[:digit:]]+)/)

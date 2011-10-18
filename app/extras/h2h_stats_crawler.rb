@@ -38,7 +38,7 @@ class H2hStatsCrawler
 
   def load_new_matches(league_record)
     h2h_league = H2hLeague.new :code => league_record.code
-    parser = H2hStatsParser.new(open(h2h_league.fixtures_url))
+    parser = H2hStatsFixturesParser.new(open(h2h_league.fixtures_url))
     parser.matches.each do |match|
       league_record.matches << match.record
     end
