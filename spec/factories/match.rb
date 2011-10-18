@@ -7,6 +7,8 @@ FactoryGirl.define do
     team_2_odds 3.65
     goals_1 2
     goals_2 1
+    half_goals_1 1
+    half_goals_2 0
     draw_odds 2.20
     began_on { Time.mktime(2011, 10, 17) }
   end

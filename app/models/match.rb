@@ -11,5 +11,7 @@ class Match < ActiveRecord::Base
   validates :draw_odds, :presence => true
   validates :goals_1, :presence => true
   validates :goals_2, :presence => true
+  validates :half_goals_1, :presence => true
+  validates :half_goals_2, :presence => true
   validates :began_on, :presence => true, :uniqueness => { :scope => [:team_1_id] }
 end

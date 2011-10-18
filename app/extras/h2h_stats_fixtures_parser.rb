@@ -19,6 +19,8 @@ class H2hStatsFixturesParser
         :draw_odds => draw_odds,
         :goals_1 => goals_1,
         :goals_2 => goals_2,
+        :half_goals_1 => half_goals_1,
+        :half_goals_2 => half_goals_2,
         :began_on => date})
     end
   end

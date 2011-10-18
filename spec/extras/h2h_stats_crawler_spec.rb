@@ -12,12 +12,23 @@ describe H2hStatsCrawler do
       @league = @crawler.leagues.first.record
 
       @league_fixtures_page = File.read(File.join(Rails.root, "spec/sample_files/h2h_league_fixtures.html"))
+      @league_fixtures_empty_page = File.read(File.join(Rails.root, "spec/sample_files/h2h_league_fixtures_empty.html"))
       FakeWeb.register_uri(:get, "http://www.h2hstats.com/soccer/lgfixtures.php?lg=EPL", :body => @league_fixtures_page)
+      FakeWeb.register_uri(:get, "http://www.h2hstats.com/soccer/lgfixtures.php?lg=EPL&cp=2", :body => @league_fixtures_empty_page)
+    end
+
+    after(:each) do
+      @league.destroy
     end
 
     it "should load matches to league" do
       @crawler.load_new_matches(@league)
       @league.matches.should have(5).items
+    end
+
+    it "should load next page if some new matches found" do
+      @crawler.should_receive(:load_fixtures_page).with(@league, 2)
+      @crawler.load_new_matches(@league)
     end
   end
 
@@ -64,16 +75,8 @@ describe H2hStatsCrawler do
         @league.name.should == "English Premier League"
       end
 
-      it "should fetch url" do
-        @league.url.should == "http://www.h2hstats.com/soccer/league.php?getlg=EPL"
-      end
-
       it "should fetch code" do
         @league.code.should == "EPL"
-      end
-
-      it "should fetch fixtures url" do
-        @league.fixtures_url.should == "http://www.h2hstats.com/soccer/lgfixtures.php?lg=EPL"
       end
     end
   end

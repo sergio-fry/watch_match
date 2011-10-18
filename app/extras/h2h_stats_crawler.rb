@@ -6,8 +6,13 @@ class H2hStatsCrawler
       "http://www.h2hstats.com/soccer/league.php?getlg=#{code}"
     end
 
-    def fixtures_url
-      "http://www.h2hstats.com/soccer/lgfixtures.php?lg=#{code}"
+    def fixtures_url(page=1)
+      case page
+      when 1
+        "http://www.h2hstats.com/soccer/lgfixtures.php?lg=#{code}"
+      else
+        "http://www.h2hstats.com/soccer/lgfixtures.php?lg=#{code}&cp=#{page}"
+      end
     end
 
     def record
@@ -36,14 +41,22 @@ class H2hStatsCrawler
     leagues.each(&:record)
   end
 
-  def load_new_matches(league_record)
+  def load_new_matches(league_record, page=1)
+    matches_count = league_record.matches.count
+
     h2h_league = H2hLeague.new :code => league_record.code
-    parser = H2hStatsFixturesParser.new(open(h2h_league.fixtures_url))
+    parser = H2hStatsFixturesParser.new(open(h2h_league.fixtures_url(page)))
     parser.matches.each do |match|
       league_record.matches << match.record
     end
+
     league_record.save
+
+    if league_record.matches.count > matches_count
+      load_fixtures_page(league_record, page + 1)
+    end
   end
+  alias :load_fixtures_page :load_new_matches
 
   protected
 
