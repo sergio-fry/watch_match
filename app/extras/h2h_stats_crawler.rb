@@ -24,12 +24,16 @@ class H2hStatsCrawler
       columns = tr.css("td")
       attrs = {}
       attrs[:name] = strip_string columns[0].content
-      attrs[:code] = columns[0].css("a").attr("href").value.match(/getlg=([A-Z]+)/)[1]
+      attrs[:code] = columns[0].css("a").attr("href").value.match(/getlg=([A-Z0-9]+)/)[1]
 
       result << H2hLeague.new(attrs)
     end
 
     result
+  end
+
+  def load_leagues
+    leagues.each(&:record)
   end
 
   def load_new_matches(league_record)

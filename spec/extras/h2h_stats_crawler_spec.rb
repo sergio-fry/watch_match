@@ -17,7 +17,6 @@ describe H2hStatsCrawler do
 
     it "should load matches to league" do
       @crawler.load_new_matches(@league)
-      @league.matches.reload
       @league.matches.should have(5).items
     end
   end
@@ -25,6 +24,20 @@ describe H2hStatsCrawler do
   describe "fetching leagues" do
     it "should fetch all leagues" do
       @crawler.leagues.should have(53).items
+    end
+
+    describe "#load_leagues" do
+      it "should save all leagues" do
+        @crawler.load_leagues
+        League.count.should == 53
+      end
+
+      it "should load missing leagues" do
+        @crawler.load_leagues
+        League.first.destroy
+        @crawler.load_leagues
+        League.count.should == 53
+      end
     end
 
     describe "H2hLeague" do
