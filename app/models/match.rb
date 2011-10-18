@@ -6,4 +6,5 @@ class Match < ActiveRecord::Base
   validates :league_id, :presence => true
   validates :team_1_id, :presence => true
   validates :team_2_id, :presence => true
+  validates :began_on, :presence => true, :uniqueness => { :scope => [:team_1_id] }
 end
