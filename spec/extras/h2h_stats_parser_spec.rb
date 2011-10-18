@@ -16,6 +16,22 @@ describe H2hStatsParser do
         @match = @parser.matches.first
       end
 
+      describe "#record" do
+        before(:each) do
+          @league = FactoryGirl.create(:league)
+        end
+
+        it "should be a Match record" do
+          @match.record.should be_a(Match)
+        end
+
+        it "should be valid (but only with empty league)" do
+          record = @match.record
+          record.league = @league
+          record.should be_valid
+        end
+      end
+
       it "should contain names of teams" do
         @match.team_1_name.should == "Tottenham"
         @match.team_2_name.should == "Arsenal"

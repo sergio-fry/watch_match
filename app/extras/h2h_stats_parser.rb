@@ -10,6 +10,11 @@ class H2hStatsParser
 
       date
     end
+
+    def record
+      Match.new({ :team_1 => Team.find_or_create_by_name(team_1_name),
+        :team_2 => Team.find_or_create_by_name(team_2_name)})
+    end
   end
 
   def initialize(html)
