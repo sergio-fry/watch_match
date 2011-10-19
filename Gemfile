@@ -42,7 +42,7 @@ group :test do
   # Pretty printed test output
   #gem 'turn', :require => false
 
-  gem 'ZenTest'
+  gem 'guard-rspec'
   gem 'factory_girl_rails'
   gem 'fakeweb'
   gem 'rspec-rails'
