@@ -41,15 +41,12 @@ describe MatchesController do
       assigns(:matches).map(&:id).should == [@match_2, @match_1].map(&:id)
     end
 
-    it "should select only last N matches" do
-      MatchesController::LIMIT.times { FactoryGirl.create(:match, :began_on => 10.days.ago) }
-      set_all_macthes_rating(10)
-      @last_match = FactoryGirl.create(:match, :began_on => 5.days.ago)
-      set_macth_rating(@last_match, 5)
+    it "should not search matches older than 30 days" do
+      @match = FactoryGirl.create(:match, :began_on => 31.days.ago)
 
       get :index
 
-      assigns(:matches).map(&:id).should include(@last_match.id)
+      assigns(:matches).map(&:id).should_not include(@match.id)
     end
   end
 end
