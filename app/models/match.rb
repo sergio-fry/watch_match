@@ -1,4 +1,5 @@
 class Match < ActiveRecord::Base
+  scope :recent, lambda { where("began_on > ?", 30.days.ago) }
   belongs_to :league
   belongs_to :team_1, :class_name => "Team", :foreign_key => :team_1_id
   belongs_to :team_2, :class_name => "Team", :foreign_key => :team_2_id
@@ -8,9 +9,9 @@ class Match < ActiveRecord::Base
   validates :league_id, :presence => true
   validates :team_1_id, :presence => true
   validates :team_2_id, :presence => true
-  validates :team_1_odds, :presence => true
-  validates :team_2_odds, :presence => true
-  validates :draw_odds, :presence => true
+  validates :team_1_odds, :presence => true, :numericality => { :greater_than => 0 }
+  validates :team_2_odds, :presence => true, :numericality => { :greater_than => 0 }
+  validates :draw_odds, :presence => true, :numericality => { :greater_than => 0 }
   validates :goals_1, :presence => true
   validates :goals_2, :presence => true
   validates :half_goals_1, :presence => true
