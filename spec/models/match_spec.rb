@@ -41,7 +41,5 @@ describe Match do
 
       @match_1.calculate_rating.should > @match_2.calculate_rating
     end
-
   end
-
 end
