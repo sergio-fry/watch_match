@@ -19,7 +19,7 @@ class Match < ActiveRecord::Base
   validates :began_on, :presence => true, :uniqueness => { :scope => [:team_1_id] }
 
   def calculate_rating
-    self.rating = 3 * goals_k + goals_diff_k + 5 * odds_k + 2 * interesting_finish_k + early_goals_k
+    self.rating = (3 * goals_k + goals_diff_k + 5 * odds_k + 2 * interesting_finish_k + early_goals_k) / 12.0 * 5.0
   end
 
   private
