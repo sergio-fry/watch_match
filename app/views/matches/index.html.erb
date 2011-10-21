@@ -13,12 +13,12 @@
   </tr>
 
 <% @matches.each do |match| %>
-  <tr>
+  <tr class="match">
     <td><%= match.league.name %></td>
     <td><%= match.team_1.name %></td>
     <td><%= match.team_2.name %></td>
     <td><%= match.began_on %></td>
-    <td><%= match.rating %></td>
+    <td><%= content_tag :span, match.rating, :class => :rating %></td>
   </tr>
 <% end %>
 </table>

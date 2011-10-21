@@ -33,19 +33,17 @@ group :production do
   gem 'pg'
 end
 
-group :development do
-  gem 'heroku', :require => false
-  gem 'sqlite3'
-end
-
-group :test do
+group :development, :test do
   # Pretty printed test output
   #gem 'turn', :require => false
 
-  gem 'guard-rspec'
   gem 'factory_girl_rails'
   gem 'fakeweb'
+  gem 'guard-rspec'
+  gem 'heroku', :require => false
+  gem 'jasmine'
   gem 'rspec-rails'
   gem 'spork'
+  gem 'sqlite3'
   gem 'timecop'
 end
