@@ -19,21 +19,32 @@ class Match < ActiveRecord::Base
   validates :began_on, :presence => true, :uniqueness => { :scope => [:team_1_id] }
 
   def calculate_rating
-    self.rating = goals_k * goals_diff_k * odds_k
+    self.rating = 3 * goals_k + goals_diff_k + 5 * odds_k + 2 * interesting_finish_k + early_goals_k
   end
 
   private
 
+  def early_goals_k
+    1.0 - 1.0 / (1.0 + ((half_goals_2) + (half_goals_1)).abs.to_f)
+  end
+
+  def interesting_finish_k
+    1.0 - 1.0 / (1.0 + ((goals_2 - half_goals_2) + (goals_1 - half_goals_1)).abs.to_f)
+  end
+
   def goals_diff_k
-    2 / (1 + (goals_2 - goals_1).abs.to_f)
+    1.0 / (1.0 + (goals_2 - goals_1).abs.to_f)
   end
 
   def goals_k
-    (goals_1 + goals_2).to_f
+    1.0 - 1.0 / (goals_1 + goals_2 + 1.0).to_f
   end
 
   def odds_k
-    result_odds / [team_1_odds, team_2_odds, draw_odds].min
+    k = result_odds.to_f / [team_1_odds, team_2_odds, draw_odds].max.to_f
+    x = result_odds.to_f
+
+    k * (1.0 - 1.0 / (x + 1.0))
   end
 
   def result_odds
